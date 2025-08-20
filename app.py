@@ -9,7 +9,7 @@ MODEL_PATH = "model.pth"
 
 # Download model if not exists
 if not os.path.exists(MODEL_PATH):
-    url = "https://drive.google.com/uc?id=1AbCDefGHIJKlmnOPQR"  # ✅ your link
+    url = https://drive.google.com/file/d/1yjjovIojwU4UihaPKtv695W6cjQzoxYn  # ✅ your link
     gdown.download(url, MODEL_PATH, quiet=False)
 
 # Load model
