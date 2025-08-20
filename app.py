@@ -1,20 +1,11 @@
-from flask import Flask, request, jsonify
-import joblib
+import os, gdown, torch
 
-app = Flask(__name__)
+MODEL_PATH = "model.pth"
 
-# Load your ML model
-model = joblib.load("/Users/adityabonde/Desktop/Car_frontend/model_final.pth")
+if not os.path.exists(MODEL_PATH):
+    # Download from Google Drive
+    url = "https://drive.google.com/uc?id=YOUR_FILE_ID"
+    gdown.download(url, MODEL_PATH, quiet=False)
 
-@app.route("/")
-def home():
-    return {"message": "ML API is running!"}
-
-@app.route("/predict", methods=["POST"])
-def predict():
-    data = request.get_json()
-    prediction = model.predict([data["features"]])
-    return jsonify({"prediction": prediction.tolist()})
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+model = torch.load(MODEL_PATH, map_location="cpu")
+model.eval()
